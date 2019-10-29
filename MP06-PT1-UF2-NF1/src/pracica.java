@@ -94,7 +94,7 @@ public class pracica {
 			ps = conexion.prepareStatement(INSERT_Personaje);
 			ps.setString(1, "7");
 			ps.setString(2, "Uriol");
-			ps.setString(3, "30");
+			ps.setString(3, "28");
 			ps.setString(4, "30");
 			ps.setString(5, "3");
 			numRowsInserted = ps.executeUpdate();
@@ -120,9 +120,17 @@ public class pracica {
 				}
 				rs.close();
 				break;
+			case 3:
+				rs = st.executeQuery("SELECT * FROM Personaje WHERE faccion_id = 3 AND ataque=(SELECT MAX(ataque) FROM Personaje WHERE faccion_id = 3)");
+				while (rs.next()) {
+					System.out.println("personaje_id=" + rs.getObject("personaje_id") + ", nombre_personaje="
+							+ rs.getObject("nombre_personaje") + ", ataque=" + rs.getObject("ataque") + ", defensa="
+							+ rs.getObject("defensa") + ", faccion_id=" + rs.getObject("faccion_id"));
+				}
+				rs.close();
+				break;
 
-			default:
-				throw new IllegalArgumentException("Unexpected value: " + o);
+			
 			}
 
 			st.close();
